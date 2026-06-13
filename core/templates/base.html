@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}AIppetite{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/">AIppetite</a>
+        <nav class="main-nav">
+            {% block nav %}{% endblock %}
+        </nav>
+    </header>
+
+    <main class="site-content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
