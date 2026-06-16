@@ -10,6 +10,17 @@
     <header class="site-header">
         <a class="brand" href="/">AIppetite</a>
         <nav class="main-nav">
+            <a href="/">Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile_edit' %}">Profile</a>
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
             {% block nav %}{% endblock %}
         </nav>
     </header>
