@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ recipe.title }} — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>{{ recipe.title }}</h1>
+    <p>{{ recipe.description }}</p>
+    <p>
+        Servings: {{ recipe.servings }} ·
+        Prep: {{ recipe.prep_minutes }} min ·
+        Cook: {{ recipe.cook_minutes }} min
+    </p>
+    <p>
+        {{ recipe.calories }} kcal · {{ recipe.protein_g }}g protein ·
+        {{ recipe.carbs_g }}g carbs · {{ recipe.fat_g }}g fat
+    </p>
+
+    <h2>Ingredients</h2>
+    <ul>
+        {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Steps</h2>
+    <ol>
+        {% for step in recipe.steps %}
+            <li>{{ step }}</li>
+        {% endfor %}
+    </ol>
+
+    {% if recipe.tags.all %}
+        <h2>Tags</h2>
+        <ul>
+            {% for tag in recipe.tags.all %}
+                <li>{{ tag.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

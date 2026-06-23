@@ -15,6 +15,7 @@
                 <a href="{% url 'bmi_calculator' %}">BMI</a>
                 <a href="{% url 'tdee_calculator' %}">TDEE</a>
                 <a href="{% url 'macro_calculator' %}">Macros</a>
+                <a href="{% url 'generate_recipe' %}">Generate Recipe</a>
                 <a href="{% url 'profile_edit' %}">Profile</a>
                 <form action="{% url 'logout' %}" method="post" class="logout-form">
                     {% csrf_token %}

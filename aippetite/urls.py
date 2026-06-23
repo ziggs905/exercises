@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('', include('nutrition.urls')),
+    path('', include('recipes.urls')),
+    path('', include('aiengine.urls')),
     path('', include('core.urls')),
 ]

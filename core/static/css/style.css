@@ -75,6 +75,10 @@ a:hover {
     padding: 2rem;
 }
 
+.error {
+    color: #b3261e;
+}
+
 .hero {
     text-align: center;
     padding: 3rem 1rem;
