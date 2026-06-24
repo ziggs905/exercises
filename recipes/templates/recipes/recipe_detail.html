@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ recipe.title }} — AIppetite{% endblock %}
 
@@ -13,6 +14,23 @@
     <p>
         {{ recipe.calories }} kcal · {{ recipe.protein_g }}g protein ·
         {{ recipe.carbs_g }}g carbs · {{ recipe.fat_g }}g fat
+    </p>
+
+    <p>
+        <button id="favorite-btn" type="button" data-recipe-id="{{ recipe.pk }}">
+            {% if recipe.is_favorite %}★ Favorited{% else %}☆ Add to favorites{% endif %}
+        </button>
+    </p>
+
+    <p>
+        Rating:
+        <span id="rating-widget" data-recipe-id="{{ recipe.pk }}">
+            {% for value in "12345" %}
+                <button class="rating-star" type="button" data-value="{{ forloop.counter }}">
+                    {% if recipe.rating and forloop.counter <= recipe.rating %}★{% else %}☆{% endif %}
+                </button>
+            {% endfor %}
+        </span>
     </p>
 
     <h2>Ingredients</h2>
@@ -37,4 +55,21 @@
             {% endfor %}
         </ul>
     {% endif %}
+
+    <h2>Notes</h2>
+    <form method="post" action="{% url 'recipe_update_notes' recipe.pk %}">
+        {% csrf_token %}
+        {{ notes_form.as_p }}
+        <button type="submit">Save notes</button>
+    </form>
+
+    <p>
+        <a href="{% url 'recipe_edit' recipe.pk %}">Edit recipe</a>
+        · <a href="{% url 'recipe_delete' recipe.pk %}">Delete recipe</a>
+        · <a href="{% url 'recipe_list' %}">Back to my recipes</a>
+    </p>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/recipes.js' %}"></script>
 {% endblock %}

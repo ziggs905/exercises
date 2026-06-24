@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}My Recipes — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>My Recipes</h1>
+    <p><a href="{% url 'recipe_create' %}">+ New recipe</a></p>
+
+    <form method="get" class="recipe-filters">
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+
+    {% if recipes %}
+        <ul class="recipe-list">
+            {% for recipe in recipes %}
+                <li>
+                    <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.title }}</a>
+                    <span class="recipe-meta">
+                        {{ recipe.calories }} kcal ·
+                        {{ recipe.prep_minutes|add:recipe.cook_minutes }} min total
+                        {% if recipe.is_favorite %}· ★ Favorite{% endif %}
+                        {% if recipe.rating %}· {{ recipe.rating }}/5{% endif %}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-state">
+            No recipes match your search.
+            <a href="{% url 'generate_recipe' %}">Generate a recipe</a> to get started.
+        </p>
+    {% endif %}
+{% endblock %}
