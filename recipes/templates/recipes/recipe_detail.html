@@ -56,6 +56,22 @@
         </ul>
     {% endif %}
 
+    <h2>Cookbooks</h2>
+    {% if cookbooks %}
+        <ul>
+            {% for cookbook in cookbooks %}
+                <li><a href="{% url 'cookbook_detail' cookbook.pk %}">{{ cookbook.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Not in any cookbook yet.</p>
+    {% endif %}
+    <form method="post" action="{% url 'recipe_add_to_cookbook' recipe.pk %}">
+        {% csrf_token %}
+        {{ add_to_cookbook_form.as_p }}
+        <button type="submit">Add to cookbook</button>
+    </form>
+
     <h2>Notes</h2>
     <form method="post" action="{% url 'recipe_update_notes' recipe.pk %}">
         {% csrf_token %}

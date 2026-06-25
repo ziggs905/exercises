@@ -99,6 +99,11 @@ a:hover {
     color: #6b6b6b;
 }
 
+.inline-form {
+    display: inline;
+    margin-left: 0.5rem;
+}
+
 .ingredient-row {
     border-top: 1px solid var(--color-border);
     padding-top: 0.5rem;

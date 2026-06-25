@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ cookbook.name }} — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>{{ cookbook.name }}</h1>
+
+    {% if cookbook.recipes.all %}
+        <ul class="recipe-list">
+            {% for recipe in cookbook.recipes.all %}
+                <li>
+                    <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.title }}</a>
+                    <form method="post" action="{% url 'cookbook_remove_recipe' cookbook.pk recipe.pk %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-state">No recipes in this cookbook yet. Add some from a recipe's page.</p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'cookbook_delete' cookbook.pk %}">Delete this cookbook</a>
+        · <a href="{% url 'cookbook_list' %}">Back to my cookbooks</a>
+    </p>
+{% endblock %}

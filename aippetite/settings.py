@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'nutrition',
     'recipes',
     'aiengine',
+    'cookbooks',
 ]
 
 MIDDLEWARE = [

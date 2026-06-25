@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from cookbooks.forms import AddToCookbookForm
+
 from .forms import IngredientFormSet, NotesForm, RecipeForm, RecipeSearchForm
 from .models import Recipe
 
@@ -49,7 +51,14 @@ def recipe_list(request):
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk, owner=request.user)
     notes_form = NotesForm(instance=recipe)
-    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe, 'notes_form': notes_form})
+    add_to_cookbook_form = AddToCookbookForm(user=request.user)
+    cookbooks = recipe.cookbooks.filter(owner=request.user)
+    return render(request, 'recipes/recipe_detail.html', {
+        'recipe': recipe,
+        'notes_form': notes_form,
+        'add_to_cookbook_form': add_to_cookbook_form,
+        'cookbooks': cookbooks,
+    })
 
 
 @login_required

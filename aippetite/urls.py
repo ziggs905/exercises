@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('nutrition.urls')),
     path('', include('recipes.urls')),
     path('', include('aiengine.urls')),
+    path('', include('cookbooks.urls')),
     path('', include('core.urls')),
 ]

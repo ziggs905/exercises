@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Cookbooks — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>My Cookbooks</h1>
+    <p><a href="{% url 'cookbook_create' %}">+ New cookbook</a></p>
+
+    {% if cookbooks %}
+        <ul class="recipe-list">
+            {% for cookbook in cookbooks %}
+                <li>
+                    <a href="{% url 'cookbook_detail' cookbook.pk %}">{{ cookbook.name }}</a>
+                    <span class="recipe-meta">{{ cookbook.recipe_count }} recipe{{ cookbook.recipe_count|pluralize }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-state">You haven't created any cookbooks yet.</p>
+    {% endif %}
+{% endblock %}
