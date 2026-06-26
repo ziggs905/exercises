@@ -25,6 +25,10 @@ def recipe_list(request):
                 Q(title__icontains=q) | Q(ingredients__name__icontains=q)
             ).distinct()
 
+        meal_type = form.cleaned_data.get('meal_type')
+        if meal_type:
+            recipes = recipes.filter(meal_type=meal_type)
+
         tags = form.cleaned_data.get('tags')
         if tags:
             recipes = recipes.filter(tags__in=tags).distinct()

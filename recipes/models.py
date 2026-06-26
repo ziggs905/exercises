@@ -22,9 +22,16 @@ class Recipe(models.Model):
         AI = 'ai', 'AI-generated'
         MANUAL = 'manual', 'Manual'
 
+    class MealType(models.TextChoices):
+        BREAKFAST = 'breakfast', 'Breakfast'
+        LUNCH = 'lunch', 'Lunch'
+        DINNER = 'dinner', 'Dinner'
+        SNACK = 'snack', 'Snack'
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     title = models.CharField(max_length=200)
     description = models.TextField()
+    meal_type = models.CharField(max_length=10, choices=MealType.choices, default=MealType.LUNCH)
     servings = models.PositiveIntegerField()
     prep_minutes = models.PositiveIntegerField()
     cook_minutes = models.PositiveIntegerField()

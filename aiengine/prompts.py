@@ -1,9 +1,11 @@
-def build_recipe_prompt(profile, targets, preferences=''):
+def build_recipe_prompt(profile, targets, preferences='', meal_type=None):
     dietary_tags = ', '.join(profile.dietary_tags.values_list('slug', flat=True)) or 'none'
     allergies = profile.allergies.strip() or 'none'
 
-    lines = [
-        'You are a recipe generator for a nutrition app.',
+    lines = ['You are a recipe generator for a nutrition app.']
+    if meal_type:
+        lines.append(f'This recipe is for: {meal_type}')
+    lines += [
         f"Target calories per serving: {targets['calories']}",
         f"Target protein per serving: {targets['protein_g']}g",
         f"Target carbs per serving: {targets['carbs_g']}g",

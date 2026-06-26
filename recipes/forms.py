@@ -13,7 +13,7 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = [
-            'title', 'description', 'servings', 'prep_minutes', 'cook_minutes',
+            'title', 'description', 'meal_type', 'servings', 'prep_minutes', 'cook_minutes',
             'calories', 'protein_g', 'carbs_g', 'fat_g', 'tags',
         ]
         widgets = {
@@ -60,6 +60,10 @@ class RecipeSearchForm(forms.Form):
     ]
 
     q = forms.CharField(required=False, label='Search title or ingredient')
+    meal_type = forms.ChoiceField(
+        choices=[('', 'Any meal type')] + list(Recipe.MealType.choices),
+        required=False,
+    )
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.order_by('category', 'name'),
         required=False,

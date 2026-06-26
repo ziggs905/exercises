@@ -5,13 +5,34 @@
 {% block content %}
     <h1>Generate a recipe</h1>
 
-    {% if not targets %}
+    {% if not meal_targets %}
         <p>Complete your profile (weight, height, age, sex, activity level, goal) before generating a recipe.</p>
         <p><a href="{% url 'profile_edit' %}">Edit your profile</a></p>
     {% else %}
         <section class="targets">
-            <p>Target for this recipe: <strong>{{ targets.calories }}</strong> kcal,
-                {{ targets.protein_g }}g protein, {{ targets.carbs_g }}g carbs, {{ targets.fat_g }}g fat.</p>
+            <p>Recipes are sized for a single meal. Pick a meal type below — its budget is:</p>
+            <table class="plan-grid">
+                <thead>
+                    <tr>
+                        <th>Meal</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for meal_type, target in meal_targets.items %}
+                        <tr>
+                            <td>{{ meal_type|title }}</td>
+                            <td>{{ target.calories }} kcal</td>
+                            <td>{{ target.protein_g }}g</td>
+                            <td>{{ target.carbs_g }}g</td>
+                            <td>{{ target.fat_g }}g</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
 
         {% if error %}

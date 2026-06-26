@@ -17,6 +17,7 @@
                 <li>
                     <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.title }}</a>
                     <span class="recipe-meta">
+                        {{ recipe.get_meal_type_display }} ·
                         {{ recipe.calories }} kcal ·
                         {{ recipe.prep_minutes|add:recipe.cook_minutes }} min total
                         {% if recipe.is_favorite %}· ★ Favorite{% endif %}
