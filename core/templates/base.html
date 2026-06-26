@@ -18,6 +18,7 @@
                 <a href="{% url 'generate_recipe' %}">Generate Recipe</a>
                 <a href="{% url 'recipe_list' %}">My Recipes</a>
                 <a href="{% url 'cookbook_list' %}">Cookbooks</a>
+                <a href="{% url 'plan_list' %}">Meal Plans</a>
                 <a href="{% url 'profile_edit' %}">Profile</a>
                 <form action="{% url 'logout' %}" method="post" class="logout-form">
                     {% csrf_token %}

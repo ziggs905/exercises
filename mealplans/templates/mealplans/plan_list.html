@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Meal Plans — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>My Meal Plans</h1>
+    <p><a href="{% url 'plan_create' %}">+ New plan</a></p>
+
+    {% if plans %}
+        <ul class="recipe-list">
+            {% for plan in plans %}
+                <li>
+                    <a href="{% url 'plan_detail' plan.pk %}">{{ plan.name }}</a>
+                    <span class="recipe-meta">
+                        starts {{ plan.start_date }} · {{ plan.target_calories }} kcal/day target
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-state">No meal plans yet.</p>
+    {% endif %}
+{% endblock %}

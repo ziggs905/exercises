@@ -104,6 +104,25 @@ a:hover {
     margin-left: 0.5rem;
 }
 
+.plan-grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.plan-grid th,
+.plan-grid td {
+    border: 1px solid var(--color-border);
+    padding: 0.5rem;
+    vertical-align: top;
+    text-align: left;
+}
+
+.swap-form {
+    display: block;
+    margin-top: 0.4rem;
+}
+
 .ingredient-row {
     border-top: 1px solid var(--color-border);
     padding-top: 0.5rem;

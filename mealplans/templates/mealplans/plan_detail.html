@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plan.name }} — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>{{ plan.name }}</h1>
+    <p>Daily target: {{ plan.target_calories }} kcal</p>
+
+    <table class="plan-grid">
+        <thead>
+            <tr>
+                <th>Day</th>
+                {% for slot in meal_slots %}
+                    <th>{{ slot|title }}</th>
+                {% endfor %}
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in days %}
+                <tr>
+                    <td>{{ day.name }}</td>
+                    {% for slot_entry in day.slots %}
+                        <td>
+                            {% if slot_entry %}
+                                <a href="{% url 'recipe_detail' slot_entry.recipe.pk %}">{{ slot_entry.recipe.title }}</a>
+                                <span class="recipe-meta">{{ slot_entry.recipe.calories }} kcal</span>
+                                <form method="post" action="{% url 'plan_entry_swap' plan.pk slot_entry.pk %}" class="swap-form">
+                                    {% csrf_token %}
+                                    {{ slot_entry.swap_form.recipe }}
+                                    <button type="submit">Swap</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                    <td>
+                        {{ day.total }} kcal
+                        <span class="recipe-meta">(target {{ plan.target_calories }})</span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{% url 'plan_delete' plan.pk %}">Delete this plan</a></p>
+{% endblock %}

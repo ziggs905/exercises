@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('recipes.urls')),
     path('', include('aiengine.urls')),
     path('', include('cookbooks.urls')),
+    path('', include('mealplans.urls')),
     path('', include('core.urls')),
 ]

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ plan.name }} — AIppetite{% endblock %}
+
+{% block content %}
+    <h1>Delete "{{ plan.name }}"?</h1>
+    <p>This cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <a href="{% url 'plan_detail' plan.pk %}">Cancel</a>
+    </form>
+{% endblock %}
