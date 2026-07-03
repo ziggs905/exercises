@@ -5,6 +5,7 @@ from typing import Protocol
 
 from django.conf import settings
 from google import genai
+from google.genai import types
 from google.genai._gaos.lib import compat_errors as genai_errors
 
 
@@ -147,7 +148,16 @@ _CODE_FENCE_RE = re.compile(r'^```(?:json)?\s*\n(.*)\n```\s*$', re.DOTALL)
 class GeminiProvider:
     def generate_recipe(self, prompt: str) -> str:
         try:
-            client = genai.Client()
+            # Default SDK behavior retries a failing call several times with backoff,
+            # which turns one bad request into a handful of billed API calls. Since
+            # generate_and_save_recipe already surfaces failures to the user directly,
+            # fail fast instead: one attempt, no retries.
+            client = genai.Client(
+                http_options=types.HttpOptions(
+                    timeout=20000,
+                    retry_options=types.HttpRetryOptions(attempts=1),
+                )
+            )
         except ValueError as exc:
             raise ProviderError('Gemini is not configured correctly: missing or invalid API key.') from exc
 
